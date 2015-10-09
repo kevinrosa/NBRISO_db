@@ -13,11 +13,12 @@ def main():
     instrument = 'tcm'
     year = '2014'
     path = database_dir + instrument + '/' + year + '/'
+    dump = 'dump/'
 
-    files_txt = glob.glob(path + '*.txt')  # list of strings of the .txt filenames (raw data)
-    files_mat = glob.glob(path + '*.mat')
-    files_cfg = glob.glob(path + '*.cfg')
-
+    files_txt = glob.glob(path+dump+'*.txt')  # list of strings of the .txt filenames (raw data)
+    files_mat = glob.glob(path+dump+'*.mat')
+    files_cfg = glob.glob(path+dump+'*.cfg')
+    files_dat = glob.glob(path+dump+'*.dat')
 
     for txt in files_txt:
         serial = txt.split('/')[-1].split('_')[0]
@@ -28,17 +29,19 @@ def main():
         new_dir = path + handle + '/'  # name of new directory
         os.makedirs(new_dir, exist_ok=True)  # makes the directory
         shutil.copyfile(txt, new_dir+handle+'.txt')
-        
+
         for i in range(0, len([f for f in files_mat if serial in f])):
             shutil.copyfile(str([f for f in files_mat if serial in f][i]), new_dir+handle+'.mat')
         for i in range(0, len([f for f in files_cfg if serial in f])):
             shutil.copyfile(str([f for f in files_cfg if serial in f][i]), new_dir+handle+'.cfg')
+        for i in range(0, len([f for f in files_dat if serial in f])):
+            shutil.copyfile(str([f for f in files_dat if serial in f][i]), new_dir+handle+'.dat')
 
-        make_README(new_dir, instrument, year, serial)
+        make_README(new_dir, serial, handle)
 
 
 # The function to write the README:
-def make_README(new_dir, instrument, year, serial):
+def make_README(new_dir, serial, handle):
     sn = list(map(str, [10175303, 10175307, 10175311, 10175312, 10175308, 10175306, 10175331, 9784975, 10175296, 2333586,
           2039045, 9784980, 9714529, 10175327, 10175324, 10175299, 10175323, 2006622, 2333584, 2006627,
           9714526, 9721595, 10175298, 9714531, 9714522, 9784979, 9714524, 9714532, 2333585, 9721594]))
