@@ -9,7 +9,7 @@ import glob  # for finding pathnames according to the rules used by the Unix she
 import shutil  # I will use for moving files
 
 def main():
-    database_dir = '/Users/kevinrosa/GSO/NBDB/'
+    database_dir = '/Users/kevinrosa/GSO/NBRIS_db/'
     instrument = 'tcm'
     year = '2014'
     path = database_dir + instrument + '/' + year + '/'
@@ -23,15 +23,16 @@ def main():
         serial = txt.split('/')[-1].split('_')[0]
         # name = file.split('/')[-1]  would return the part after the path and...
         # serl = name.split('_')[0]  would return the part before the first underscore
+        handle = instrument + '_' + year + '_sn' + serial
 
-        new_dir = path+instrument+'_'+year+'_sn'+serial+'/'  # name of new directory
+        new_dir = path + handle + '/'  # name of new directory
         os.makedirs(new_dir, exist_ok=True)  # makes the directory
-        shutil.copyfile(txt, new_dir+instrument+'_'+year+'_sn'+serial+'.txt')
+        shutil.copyfile(txt, new_dir+handle+'.txt')
+        
         for i in range(0, len([f for f in files_mat if serial in f])):
-            shutil.copyfile(str([f for f in files_mat if serial in f][i]), new_dir+instrument+'_'+year+'_sn'+serial+'.mat')
-
+            shutil.copyfile(str([f for f in files_mat if serial in f][i]), new_dir+handle+'.mat')
         for i in range(0, len([f for f in files_cfg if serial in f])):
-            shutil.copyfile(str([f for f in files_cfg if serial in f][i]), new_dir+instrument+'_'+year+'_sn'+serial+'.cfg')
+            shutil.copyfile(str([f for f in files_cfg if serial in f][i]), new_dir+handle+'.cfg')
 
         make_README(new_dir, instrument, year, serial)
 
@@ -68,7 +69,7 @@ def make_README(new_dir, instrument, year, serial):
     # Now let's write the README:
     if serial in sn:
         i = sn.index(serial)
-        file = open(new_dir+'README'+'_'+instrument+'_'+year+'_sn'+serial+'.txt', 'w')
+        file = open(new_dir+'README'+'_'+handle+'.txt', 'w')
         file.write('SN: '+sn[i]+'\n')
         file.write('Depth: '+depth[i]+'\n')
         file.write('Y-axis: '+y_ax[i]+'\n')
