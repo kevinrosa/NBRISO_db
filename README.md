@@ -1,4 +1,4 @@
 # NBRIS_db
-Database for oceanographic data of Narragansett Bay and RI Sound
+# Database for oceanographic data of Narragansett Bay and RI Sound
 
-Here I will organize the many different pieces of this project.
+Kevin Rosa, URI GSO
