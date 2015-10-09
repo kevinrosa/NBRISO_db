@@ -25,11 +25,12 @@ def main():
     instrument = 'tcm'
     year = '2012'
     path = database_dir + instrument + '/' + year + '/'
+    dump = 'dump/'
 
-    files_txt = glob.glob(path + '*.txt')  # list of strings of the .txt filenames (raw data)
-    files_mat = glob.glob(path + '*.mat')
-    files_cfg = glob.glob(path + '*.cfg')
-    files_dat = glob.glob(path + '*.dat')
+    files_txt = glob.glob(path+dump+'*.txt')  # list of strings of the .txt filenames (raw data)
+    files_mat = glob.glob(path+dump+'*.mat')
+    files_cfg = glob.glob(path+dump+'*.cfg')
+    files_dat = glob.glob(path+dump+'*.dat')
 
 
     for txt in files_txt:
@@ -47,7 +48,7 @@ def main():
         for i in range(0, len([f for f in files_dat if serial in f])):
             shutil.copyfile(str([f for f in files_dat if serial in f][i]), new_dir+handle+'.dat')
 
-       # make_README(new_dir, instrument, year, serial)
+    #   make_README(new_dir, instrument, year, serial)
 
 
 # The function to write the README:
