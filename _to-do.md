@@ -1,0 +1,3 @@
+- [ ] Merge tcm_2012_dirs.py and tcm_2014_dirs.py
+- [ ] Make make_README() able to read from some input file instead
+- [ ] Replace README files with JSON format
