@@ -73,19 +73,20 @@ def make_README_json(new_dir, serial, handle):
     # Now let's write the README:
     if serial in sn:
         i = sn.index(serial)
-        data = {
-            'Sensor serial number' : sn[i],
-            'Depth' : depth[i],
-            'Y-axis' : y_ax[i],
-            'Length' : length[i],
-            'Lon' : lon[i],
-            'Lat' : lat[i],
-            'Time standard' : timezone,
-            'Velocity units' : velocity_units,
-            'Investigators' : investigators,
-            'Project name' : project
-        }
-        with open(new_dir+'README'+'_'+handle+'.txt', 'w') as outfile:
+        data = OrderedDict([
+            ('Sensor serial number', sn[i]),
+            ('Approx. Depth (m)', depth[i]),
+            ('Y-axis', y_ax[i]),
+            ('Length', length[i]),
+            ('Lon', lon[i]),
+            ('Lat', lat[i]),
+            ('Time standard', timezone),
+            ('Velocity units', velocity_units),
+            ('Investigators', investigators),
+            ('Project name', project)
+        ])
+
+        with open(new_dir+'README'+'_'+handle+'.json', 'w') as outfile:
             json.dump(data, outfile, indent=4)
             outfile.close()
 
