@@ -1,5 +1,7 @@
 - [x] Merge tcm_2012_dirs.py and tcm_2014_dirs.py
 - [x] Make make_README() able to read from some input file instead
 - [x] Replace README files with JSON format
+- [ ] Get more info about 2012 TCMs
+- [ ] Add institution and researcher info to json files
 - [ ] ADCP info.csv files
 - [ ] ADCP filetree .py scripts
