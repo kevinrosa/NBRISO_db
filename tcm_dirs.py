@@ -55,7 +55,7 @@ def get_sn(fname, year):
 # The function to write the README:
 def make_README_json(dump, new_dir, serial, handle):
 
-    with open(dump+handle.split('_sn')[0]+'.csv') as file_csv:
+    with open(dump+'info_'+handle.split('_sn')[0]+'.csv') as file_csv:
         for row in csv.DictReader(file_csv):
             if row['sn'] == serial:  # test each row for serial number
                 lon = row['lon']
