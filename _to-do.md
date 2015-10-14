@@ -1,3 +1,5 @@
-- [ ] Merge tcm_2012_dirs.py and tcm_2014_dirs.py
-- [ ] Make make_README() able to read from some input file instead
+- [x] Merge tcm_2012_dirs.py and tcm_2014_dirs.py
+- [x] Make make_README() able to read from some input file instead
 - [x] Replace README files with JSON format
+- [ ] ADCP info.csv files
+- [ ] ADCP filetree .py scripts
