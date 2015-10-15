@@ -26,7 +26,7 @@ def main():
     for txt in files_txt:
         serial = get_sn(txt, year)  # extract serial number from file name
 
-        handle = instrument + '_' + year + '_sn' + serial
+        handle = '_'.join([instrument, year, 'sn']) + serial  # 'tcm_2000_sn12345'
         new_dir = path + handle + '/'  # name of new directory
         os.makedirs(new_dir, exist_ok=True)  # makes the directory
         shutil.copyfile(txt, new_dir+handle+'.txt')
