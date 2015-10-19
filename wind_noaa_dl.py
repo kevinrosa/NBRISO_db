@@ -12,6 +12,7 @@ import os
 import csv
 import json
 
+database_dir = '/Users/kevinrosa/GSO/NBRIS_db'
 instrument = 'wind'
 stations = ['8452660', '8452944', '8454000', '8454049', '8452951']
 years = [str(i) for i in range(2004, 2014+1)]
@@ -20,10 +21,12 @@ months = [str(i).zfill(2) for i in range(1,13)]  # zfill() for leading zero
 for station in stations:
     for year in years:
         handle = '_'.join([instrument, year, station])  # wind_2000_12345
-        wind_dir = '/'.join(['/Users/kevinrosa/GSO/NBRIS_db', instrument, year, handle]) + '/'
-        wind_dir_dump = wind_dir + 'dump/'
-        if not os.path.exists(wind_dir_dump):
-            os.makedirs(wind_dir_dump)  # making wind_dir_dump will make wind_dir too
+        wind_dir = '/'.join([database_dir, instrument, year, handle]) + '/'
+        year_dir_dump = '/'.join([database_dir, instrument, year, 'dump']) + '/'
+        if not os.path.exists(wind_dir):
+            os.makedirs(wind_dir)
+        if not os.path.exists(year_dir_dump):
+            os.makedirs(year_dir_dump)
 
         year_fname = wind_dir + handle +'.csv'
 
@@ -36,7 +39,7 @@ for station in stations:
             url = 'http://tidesandcurrents.noaa.gov/api/datagetter?product=wind&application=NOS.COOPS.TAC.MET&begin_date=' \
                   +year+month+day1+'&end_date='+year+next_month+day2+'&station='+station+'&time_zone=GMT' \
                                                                                    '&units=metric&interval=6&format=csv'
-            month_fname = wind_dir_dump + '_'.join([station, year, month])+'.csv'
+            month_fname = year_dir_dump + '_'.join([station, year, month])+'.csv'
             urllib.request.urlretrieve(url, month_fname)
 
             with open(year_fname, 'a') as f_out:
@@ -46,7 +49,7 @@ for station in stations:
                         f_out.write(line)
 
         url_json = url[0:-3] + 'json'  # url for JSON format
-        json_fname = wind_dir_dump + '_'.join(['JSON', handle]) + '.json'
+        json_fname = year_dir_dump + '_'.join(['JSON', handle]) + '.json'
         urllib.request.urlretrieve(url_json, json_fname)
 
         with open(json_fname) as json_file:
