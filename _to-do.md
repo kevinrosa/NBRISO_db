@@ -5,3 +5,4 @@
 - [ ] Add institution and researcher info to json files
 - [ ] ADCP info.csv files
 - [ ] ADCP filetree .py scripts
+- [x] NOAA wind data download, organize, and convert to .mat
