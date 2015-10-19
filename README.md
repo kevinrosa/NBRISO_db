@@ -1,4 +1,3 @@
-# NBRISO_db
-# Database for oceanographic data of Narragansett Bay and RI Sound
+![Logo](http://i.imgur.com/YHh4pry.jpg)
 
 Kevin Rosa, URI GSO
