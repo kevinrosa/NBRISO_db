@@ -33,6 +33,8 @@ for y = 1:length(years)
         direction = datenum(C{3});  % direction from
         eastward    = -sind(direction).*speed;
         northward   = -sind(direction).*speed;
+        parts = strsplit(handles{s}, '_');
+        station_id  = parts(end);
         
         save([save_dir, handles{s}, '.mat'], 'time', 'eastward', 'northward');
         clearvars C time speed direction eastward northward
