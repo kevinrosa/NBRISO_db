@@ -1,6 +1,6 @@
 ### Wednesday Oct 21, 2015:
 * created ``_naming_scheme.md``
-* 
+
 ###### TO DO:
 - [ ] figure best way to deal with incremented handles (i.e. no SN) to make sure the reference number never changes.  ``adcp_2014_moored_04`` should always have the same name no matter how many other ADCP datasets get added for that year.  It would seem preferably if the incremeneting was related to start time but I think it is more important that the handle stay constant.
 
