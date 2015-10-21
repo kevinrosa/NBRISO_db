@@ -1,6 +1,6 @@
 # Monday Oct 19, 2015:
-* finished proposal [for Cynthia's class].
-* renamed to NBRISO_db (from NBRIS_db)
+* finished proposal [for Cynthia's class]
+* renamed repository to NBRISO_db (from NBRIS_db)
 * made a first logo
 * began learning some SQL
 
