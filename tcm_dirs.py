@@ -10,11 +10,12 @@ import shutil  # I will use for moving files
 import json
 from collections import OrderedDict
 import csv
+import nbriso_db_module as db
 
 def main():
-    database_dir = '/Users/kevinrosa/GSO/NBRIS_db/'
+    database_dir = '/Users/kevinrosa/GSO/NBRISO_db/'
     instrument = 'tcm'
-    year = '2014'
+    year = '2012'
     path = database_dir + instrument + '/' + year + '/'
     dump = path + 'dump/'
 
@@ -55,40 +56,12 @@ def get_sn(fname, year):
 # The function to write the README:
 def make_README_json(dump, new_dir, serial, handle):
 
-    with open(dump+'info_'+handle.split('_sn')[0]+'.csv') as file_csv:
-        for row in csv.DictReader(file_csv):
-            if row['sn'] == serial:  # test each row for serial number
-                lon = row['lon']
-                lat = row['lat']
-                depth = row['depth']
-                y_axis = row['y-axis']
-                time_start = row['time_start']
-                time_end = row['time_end']
-                dt = row['dt']
-                length = row['length']
-                velocity_units = row['velocity_units']
-                timezone = row['timezone']
-                break  # stop reading lines once we've found the instrument
-    # when exiting the 'with' block, no matter what, Python calls file_csv.close() automatically
-
-    data = OrderedDict([
-        ('Sensor serial number', serial),
-        ('Lon', lon),
-        ('Lat', lat),
-        ('Time standard', timezone),
-        ('Time start', time_start),
-        ('dt (min)', dt),
-        ('Time end', time_end),
-        ('Velocity units', velocity_units),
-        ('TCM Length (m)', length),
-        ('Approx. Depth (m)', depth),
-        ('Y-axis', y_axis),
-      # ('Investigators', investigators),
-      # ('Project name', project)
-    ])
+    csv_fname = dump+'info_'+handle.split('_sn')[0]+'.csv'
+    dictionary = db.csv_to_dict(csv_fname)
+    metadata = dictionary[serial]
 
     with open(new_dir+'README'+'_'+handle+'.json', 'w') as outfile:
-        json.dump(data, outfile, indent=4)
+        json.dump(metadata, outfile, sort_keys=True, indent=4)
 
     return
 
