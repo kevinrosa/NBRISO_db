@@ -7,6 +7,7 @@
 
 ###### TO DO:
 - [x] Look into creating the metadata dictionary automatically from the ``info*.csv``, else write own function to do this
+
 _______________________________________________
 ### Wednesday Oct 21, 2015:
 * created ``_naming_scheme.md``
