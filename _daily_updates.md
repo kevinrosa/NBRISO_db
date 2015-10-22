@@ -5,7 +5,9 @@
 * for ``ctd_ullman_dirs.py`` script, added function to extract time from ``.cnv`` files.
 * beginning a module with useful functions for this project.  First function: ``nbriso_db.csv_to_dict``
 
+###### TO DO:
 - [x] Look into creating the metadata dictionary automatically from the ``info*.csv``, else write own function to do this
+
 _______________________________________________
 ### Wednesday Oct 21, 2015:
 * created ``_naming_scheme.md``
