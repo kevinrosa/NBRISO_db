@@ -1,3 +1,11 @@
+### Thursday Oct 22, 2015:
+* changes to JSON naming scheme.  An import one to notice is the change from ``time_end`` to ``time_stop``.  I think this will improve readability when using ``sort_keys=True`` in ``json.dump``.  Also made the change in the TCM ``info*.csv`` files.
+* changed how I write TCM JSON files.  Now following ``wind_noaa_dirs.py`` technique by making a dictionary ``meta`` once and then just writing using ``json.dump(meta, json_fname, sort_keys=True, indent-4).
+* in ``info*.csv``, to express units without getting messy when writing ``README*.json``, adding extra fields to hold units (e.g. ``depth`` will now also get ``depth_units``)
+* for ``ctd_ullman_dirs.py`` script, added function to extract time from ``.cnv`` files.
+* beginning a module with useful functions for this project.  First function: ``nbriso_db.csv_to_dict``
+
+- [x] Look into creating the metadata dictionary automatically from the ``info*.csv``, else write own function to do this
 _______________________________________________
 ### Wednesday Oct 21, 2015:
 * created ``_naming_scheme.md``
