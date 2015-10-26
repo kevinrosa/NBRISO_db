@@ -1,4 +1,4 @@
-###### For important links about NODC/NCEI, CF Convetions, and NetCDF.
+###### Important links about NODC/NCEI, CF Convetions, and NetCDF.
 
 ##### [CF Conventions 1.6 (long pdf)](http://cfconventions.org/Data/cf-conventions/cf-conventions-1.6/build/cf-conventions.pdf)
   * [in html](http://cfconventions.org/Data/cf-conventions/cf-conventions-1.6/build/cf-conventions.html)
