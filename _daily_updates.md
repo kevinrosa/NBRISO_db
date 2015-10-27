@@ -1,3 +1,9 @@
+### Monday Oct 26, 2015:
+##### Important update:
+After meeting with Peter Cornillon, will now be additionally converting to data to NetCDF following CF Conventions and submitting to NCEI (formerly NODC) database.  Still planning to write own website with high-res coastal data search as NCEI search is not very good for coastal data.
+* begin experimenting with GitHub Pages (kevinrosa.github.io) as a quicker way to get the website up.  Only supports static HTML pages so don't think it will be sufficient for the site though it will be good for self-teaching basics of web development.
+* started a list of useful NetCDF/CF/NCEI links.  Also began converting CTD profiles into NetCDF using Python.  Considering doing this in Matlab instead for easier maintenance by future students.
+
 ### Thursday Oct 22, 2015:
 * changes to JSON naming scheme.  An import one to notice is the change from ``time_end`` to ``time_stop``.  I think this will improve readability when using ``sort_keys=True`` in ``json.dump``.  Also made the change in the TCM ``info*.csv`` files.
 * changed how I write TCM JSON files.  Now following ``wind_noaa_dirs.py`` technique by making a dictionary ``meta`` once and then just writing using ``json.dump(meta, json_fname, sort_keys=True, indent-4).
