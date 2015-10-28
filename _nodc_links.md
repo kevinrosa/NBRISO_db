@@ -14,3 +14,5 @@
   * [Writing netCDF example on github](https://github.com/Unidata/netcdf4-python/blob/master/examples/writing_netCDF.ipynb)
 
 ##### [SeaDataNet NetCDF for Point Data presentation](http://www.seadatanet.org/content/download/22352/154095/file/SDN2_WP3_training2_Session11_BODC_NetCDF.pdf)
+
+##### [Matlab netcdf documentation](http://www.mathworks.com/help/matlab/ref/netcdf.html)
