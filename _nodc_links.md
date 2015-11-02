@@ -9,6 +9,7 @@
 ##### [NODC feature-type decision tree](http://www.nodc.noaa.gov/data/formats/netcdf/v1.1/decision_tree_high_res.pdf)
   * [Table with better examples](http://www.nodc.noaa.gov/data/formats/netcdf/v1.1/#templatesexamples)
 
+##### [NODC Attributes and Guidance Table](https://www.nodc.noaa.gov/data/formats/netcdf/v1.1/#guidancetable)
 ##### [Send2NCEI (S2N) NODC Submit Ocean and Coastal Data (login)](https://www.nodc.noaa.gov/s2n/)
 ##### [Unidata netCDF4 Python module](http://unidata.github.io/netcdf4-python/#section1)
   * [Writing netCDF example on github](https://github.com/Unidata/netcdf4-python/blob/master/examples/writing_netCDF.ipynb)
