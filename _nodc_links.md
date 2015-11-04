@@ -17,3 +17,5 @@
 ##### [SeaDataNet NetCDF for Point Data presentation](http://www.seadatanet.org/content/download/22352/154095/file/SDN2_WP3_training2_Session11_BODC_NetCDF.pdf)
 
 ##### [Matlab netcdf documentation](http://www.mathworks.com/help/matlab/ref/netcdf.html)
+
+##### [Examples writing/reading NetCDF in different languages](http://www.unidata.ucar.edu/software/netcdf/examples/programs/)
