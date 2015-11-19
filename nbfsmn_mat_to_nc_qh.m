@@ -121,7 +121,7 @@ netcdf.putAtt(ncid, varid, 'standard_name', 'longitude');
 netcdf.putAtt(ncid, varid, 'units', 'degree_east');
 
 % SENSOR DEPTH:
-varid   = netcdf.defVar(ncid, 'sensor_depth', 'byte', [dimid_stat, dimid_depth]);
+varid   = netcdf.defVar(ncid, 'sensor_depth', 'float', [dimid_stat, dimid_depth]);
 netcdf.putVar(ncid, varid, [zsh'; zdp']);
 netcdf.putAtt(ncid, varid, 'long_name', 'Sensor Depth');
 % netcdf.putAtt(ncid, varid, 'comment', ['There are two depth levels: ' ...
