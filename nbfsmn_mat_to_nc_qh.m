@@ -19,7 +19,7 @@
 %       since there were weird problems caused by adding it on in beginning.
 %  
 
-nc_filename = '/Users/kevinrosa/GSO/BayCirculation/NBFSMN_through2014_qh_rosa_v02.nc';
+nc_filename = '/Users/kevinrosa/GSO/BayCirculation/NBFSMN_through2014_qh_rosa_v03.nc';
 if exist(nc_filename)
     delete(nc_filename);  % couldn't get 'CLOBBER' and 'NETCDF4' simultaneously
 end
@@ -53,7 +53,10 @@ T   = round(T/dt)*dt;
 dimid_stat  = netcdf.defDim(ncid, 'station', length(mat_file));
 dimid_time  = netcdf.defDim(ncid, 'time', length(T));
 dimid_depth = netcdf.defDim(ncid, 'depth_level', 2);
-dimid_code  = netcdf.defDim(ncid, 'station_code_length', 4);
+dimid_code  = netcdf.defDim(ncid, 'site_code_length', 4);
+dimid_abrv  = netcdf.defDim(ncid, 'site_abrv_length', 2);
+dimid_name  = netcdf.defDim(ncid, 'site_name_length', maxNameLength);
+
 
 fillvalue   = -999;
 M   = ones(length(mat_file), length(T), 2) * fillvalue;  % initial 3-d matrix
@@ -63,6 +66,7 @@ M   = ones(length(mat_file), length(T), 2) * fillvalue;  % initial 3-d matrix
 [temp, sal, domgl] = deal(M);
 chl = squeeze(M(:,:,1));
 site_code = repmat('*', length(mat_file), 4);
+maxNameLength = 0; % will store max of length(locn.name)
 
 for i = 1:length(mat_file)
     clearvars locn qh qh  % make sure previous load is overwritten
@@ -71,12 +75,12 @@ for i = 1:length(mat_file)
     lat(i)  = locn.lat;
     lon(i)  = locn.lon;    
     zbathy(i)   = locn.zbathy;
-    zsh(i)     = locn.zsh;
-    zdp(i)     = locn.zdp;
-    locn.zbathy
+    zsh(i)      = locn.zsh;
+    zdp(i)      = locn.zdp;
     site_code(i,:)  = locn.code
-   % site_name   = locn.name;
-   % site_abrv   = locn.abrv;
+    site_abrv(i,:)  = locn.abrv;
+    site_name_cell{i}    = locn.name;
+    maxNameLength = max(length(locn.name), maxNameLength);
     
     % EST to UTC:
     time    = qh.dnest;
@@ -90,19 +94,31 @@ for i = 1:length(mat_file)
     sal(i, index, 2)    = qh.dp.sal;
     domgl(i, index, 1)  = qh.sh.domgl;
     domgl(i, index, 2)  = qh.dp.domgl;
-    chl(i,index)        = qh.sh.chl;
+    chl(i, index)       = qh.sh.chl;
+    z(i, index, 1)      = qh.sh.dep;
+    z(i, index, 2)      = qh.dp.dep;
+    ph(i, index, 1)     = qh.sh.ph;
+    ph(i, index, 2)     = qh.dp.ph;
+end
+
+% from site_name_cell, write matrix 'site_name':
+site_name = repmat('*', length(mat_file), maxNameLength);
+for i = 1:length(mat_file)
+    site_name(i, 1:length(site_name_cell{i})) = site_name_cell{i};
 end
 
 temp(isnan(temp))   = fillvalue;
 sal(isnan(sal))     = fillvalue;
 domgl(isnan(domgl)) = fillvalue;
 chl(isnan(chl))     = fillvalue;
+z(isnan(z))         = fillvalue;
+ph(isnan(ph))       = fillvalue;
 
 % TIME:
 varid   = netcdf.defVar(ncid, 'time', 'double', [dimid_time]);
 netcdf.defVarFill(ncid, varid, false, fillvalue);
 netcdf.putVar(ncid, varid, T + datenum(0000,00,00,5,0,0)); % EST to UTC!
-netcdf.putAtt(ncid, varid, 'long_name', 'datenum');
+netcdf.putAtt(ncid, varid, 'long_name', 'MATLAB datenum');
 netcdf.putAtt(ncid, varid, 'units', 'days since 0000-01-00 00:00:00');
 netcdf.putAtt(ncid, varid, 'time_zone', 'UTC');
 
@@ -169,9 +185,26 @@ netcdf.putAtt(ncid, varid, 'units', 'ug/L')
 netcdf.putAtt(ncid, varid, 'comment', ['Chlorophyll is only measured at ' ...
     'depth_level==1 (near-surface).']);
 
+% DISSOLVED OXYGEN:
+varid   = netcdf.defVar(ncid, 'ph', 'float', [dimid_stat, dimid_time, dimid_depth]);
+netcdf.defVarFill(ncid, varid, false, fillvalue);
+netcdf.putVar(ncid, varid, ph);
+netcdf.putAtt(ncid, varid, 'standard_name', 'sea_water_ph_reported_on_total_scale');
+netcdf.putAtt(ncid, varid, 'long_name', 'pH');
+
 % SITE CODE:
 varid   = netcdf.defVar(ncid, 'site_code', 'char', [dimid_stat, dimid_code]);
 netcdf.defVarFill(ncid, varid, false, '*');
 netcdf.putVar(ncid, varid, site_code);
+
+% SITE ABBREVIATION:
+varid   = netcdf.defVar(ncid, 'site_abrv', 'char', [dimid_stat, dimid_abrv]);
+netcdf.defVarFill(ncid, varid, false, '*');
+netcdf.putVar(ncid, varid, site_abrv);
+
+% SITE NAME:
+varid   = netcdf.defVar(ncid, 'site_name', 'char', [dimid_stat, dimid_name]);
+netcdf.defVarFill(ncid, varid, false, '*');
+netcdf.putVar(ncid, varid, site_name);
 
 netcdf.close(ncid)
