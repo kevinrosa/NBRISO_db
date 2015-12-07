@@ -2,7 +2,7 @@
 % speed into u and v components.  I will save the variables in a .mat file
 
 clear
-all_wind_dir    = '/Users/kevinrosa/GSO/NBRIS_db/wind/';
+all_wind_dir    = '/Users/kevinrosa/GSO/NBRISO_db/wind/';
 years_dirs      = dir(all_wind_dir);
 years = [];
 for i = 1:length(years_dirs)
@@ -28,9 +28,9 @@ for y = 1:length(years)
         C = textscan(fid, '%{yyyy-MM-dd HH:mm}D %f32 %f32 %*[^\n]',...
             'Delimiter',',', 'EmptyValue', NaN);
         
-        time    = single(datenum(C{1}));
-        speed   = datenum(C{2});
-        direction = datenum(C{3});  % direction from
+        time    = datenum(C{1});
+        speed   = C{2};
+        direction = C{3};  % direction from
         eastward    = -sind(direction).*speed;
         northward   = -sind(direction).*speed;
         parts = strsplit(handles{s}, '_');
